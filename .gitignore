@@ -10,3 +10,7 @@ jaffle_shop
 
 __pycache__
 .DS_Store
+
+dist
+target
+*.log

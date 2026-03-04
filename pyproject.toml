@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "dbt-ibmdb2"
-version = "1.8.0"
-description = "The db2 adapter plugin for dbt (data build tool)"
-authors = ["aurany <rasmus.nyberg@gmail.com>"]
+name = "dbt-db2"
+version = "1.0.1"
+description = "是一款 dbt (data build tool) 的适配器插件, 基于 dbt-ibmdb2@1.8.0 修订。"
+authors = ["Getter <459319819@qq.com>", "aurany <rasmus.nyberg@gmail.com>"]
 license = "Apache Software License 2.0"
 readme = "README.md"
-repository = "https://github.com/aurany/dbt-ibmdb2"
+repository = "https://github.com/459319819/dbt-db2"
 keywords = [
     "dbt",
     "ibm",
@@ -22,11 +22,13 @@ python = ">=3.8"
 dbt-core = ">=1.8.0"
 ibm-db = "^3.1.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^7.1.2"
 tox = "^3.25.1"
 python-dotenv = "^0.20.0"
 dbt-tests-adapter = ">=1.8.0"
+build = "^1.4.0"
+twine = "^6.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.8"]
