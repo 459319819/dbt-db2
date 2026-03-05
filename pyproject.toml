@@ -1,11 +1,15 @@
-[tool.poetry]
+[project]
 name = "dbt-db2"
 version = "1.0.1"
+requires-python = ">=3.9"
 description = "是一款 dbt (data build tool) 的适配器插件, 基于 dbt-ibmdb2@1.8.0 修订。"
-authors = ["Getter <459319819@qq.com>", "aurany <rasmus.nyberg@gmail.com>"]
-license = "Apache Software License 2.0"
+authors = [
+    { name = "Getter", email = "459319819@qq.com" },
+    { name = "aurany", email = "rasmus.nyberg@gmail.com" }
+]
+license = "Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/459319819/dbt-db2"
+urls = { Repository = "https://github.com/459319819/dbt-db2" }
 keywords = [
     "dbt",
     "ibm",
@@ -13,23 +17,32 @@ keywords = [
     "data",
     "engineering"
 ]
-packages = [
-    { include = "dbt" },
+dependencies = [
+    "dbt-core>=1.8.0",
+    "ibm-db==3.2.8",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.8"
-dbt-core = ">=1.8.0"
-ibm-db = "^3.1.0"
+[dependency-groups]
+dev = [
+    "pytest~=7.1.2",
+    "tox~=3.25.1",
+    "python-dotenv~=0.20.0",
+    "dbt-tests-adapter>=1.8.0",
+    "build~=1.4.0",
+    "twine~=6.2.0",
+]
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.1.2"
-tox = "^3.25.1"
-python-dotenv = "^0.20.0"
-dbt-tests-adapter = ">=1.8.0"
-build = "^1.4.0"
-twine = "^6.2.0"
+[[tool.uv.index]]
+name = "nexus"
+url = "https://nexus.asiic.cn/repository/pypi-proxy/simple"
+
 
 [build-system]
-requires = ["poetry-core>=1.0.8"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]  # 声明需要这个库来构建
+build-backend = "hatchling.build" # 声明使用这个库的接口
+
+# 需要被构建的目录
+[tool.hatch.build.targets.wheel]
+packages = ["dbt"]
+
+
