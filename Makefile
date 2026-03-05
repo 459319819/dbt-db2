@@ -42,7 +42,7 @@ restart-db2:
 # 完全卸载开发环境
 uninstall:
 	@sudo docker rm dbt-db2 --force
-	@sudo ocker rmi ibmcom/db2:11.5.7.0 --force
+	@sudo docker rmi ibmcom/db2:11.5.7.0 --force
 	@rm -rf db2/database/*
 	@rm -rf db2/keystore/*
 	@rm -rf .tox .venv .pytest_cache logs
