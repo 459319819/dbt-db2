@@ -176,19 +176,25 @@ your_profile_name:
 | extra_connect_opts | 额外连接选项 | 可选 | `Security=SSL;SSLClientKeyStoreDB=<path-to-client-keystore>;SSLClientKeyStash=<path-to-client-keystash>` |
 
 
-## 设置开发环境并运行测试
+## 开发环境与运行测试
 
-请确保您已在全局范围内安装了 Make、 Docker 和 Poetry。
+请确保您已在全局范围内安装了 make、 docker.io 和 uv。
 
+### 🛠️ 自动化安装开发环境
 ```powershell
 $ make install
+```
+
+### 🛠️ 运行自动化测试
+```powershell
 $ make test
+```
+
+### 🛠️ 卸载开发环境
+```powershell
 $ make uninstall
 ```
 
+
 ## 报告错误
 想要报告错误或请求新功能？请 提交 [issue](https://github.com/aurany/dbt-ibmdb2/issues/new)。
-
-## 致谢
-dbt-ibmdb2 深受 dbt-mysql 和 dbt-oracle 的启发，并从中借鉴了代码。
-而 dbt-db2 仅仅是基于 dbt-ibmdb2 的补丁版本。
