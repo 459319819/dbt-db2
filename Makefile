@@ -8,7 +8,8 @@ install:
 # 	-p 表示如果目录已存在则不报错。
 	@mkdir -p db2/database
 	@mkdir -p db2/keystore
-	@docker run \
+	@echo "🔍 正在启动 ibmdb2 容器，需要一些时间，请稍等..."
+	@sudo docker run \
 		-itd \
 		--name dbt-db2 \
 		--restart unless-stopped \
@@ -23,9 +24,10 @@ install:
 		--privileged=true \
 		icr.io/db2_community/db2:11.5.9.0
 # 	同步等待数据库创建完成，并实时跟踪容器日志，当捕捉到 “Setup has completed.” 则结束
-	@docker logs -f dbt-db2 2>&1 | grep -m 1 '(*) Setup has completed.'
+	@sudo docker logs -f dbt-db2 2>&1 | grep -m 1 '(*) Setup has completed.'
+	@echo "✅ ibmdb2 数据库 启动成功!"
 # 	在容器内部运行刚才挂载进去的 setup_ssl.sh 脚本
-	@docker exec \
+	@sudo docker exec \
 		-d \
 		--user db2inst1 \
 		dbt-db2 \
@@ -35,12 +37,12 @@ install:
 
 # 重启 dbt-db2 容器
 restart-db2:
-	@docker restart dbt-db2
+	@sudo docker restart dbt-db2
 
 # 完全卸载开发环境
 uninstall:
-	@docker rm dbt-db2 --force
-	@docker rmi ibmcom/db2:11.5.7.0 --force
+	@sudo docker rm dbt-db2 --force
+	@sudo ocker rmi ibmcom/db2:11.5.7.0 --force
 	@rm -rf db2/database/*
 	@rm -rf db2/keystore/*
 	@rm -rf .tox .venv .pytest_cache logs

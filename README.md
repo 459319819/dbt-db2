@@ -176,14 +176,54 @@ your_profile_name:
 | extra_connect_opts | 额外连接选项 | 可选 | `Security=SSL;SSLClientKeyStoreDB=<path-to-client-keystore>;SSLClientKeyStash=<path-to-client-keystash>` |
 
 
-## 开发环境与运行测试
+## 定制开发与自动测试
 
-请确保您已在全局范围内安装了 make、 docker.io 和 uv。
+### 安装基础依赖
+
+```powershell
+# 更新软件源的目录（索引）
+$ sudo apt update
+
+# 安装
+$ sudo apt install make docker.io
+```
+
+```powershell
+# 下载并安装
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 将 uv 添加到当前用户环境变量中
+$ source $HOME/.local/bin/env
+
+# 验证
+$ uv --version
+```
+
+> [!Warning]
+> uv 默认安装到用户级别的环境变量中，而非系统级环境变量
+
+### 启动 docker
+```powershell
+# 启动 docker
+sudo systemctl start docker
+
+# 查看 docker 状态
+sudo systemctl status docker
+```
+
+> [!Tip]
+> 不用设置为默认启动项，建议每次需要使用到docker时再启动
+
+### 克隆项目
+请确保当前 git 项目是在用户目录下（不要克隆到root中）。
 
 ### 🛠️ 自动化安装开发环境
 ```powershell
 $ make install
 ```
+
+> [!Warning]
+> 请勿使用 sudo 权限执行，当前用户权限执行即可。
 
 ### 🛠️ 运行自动化测试
 ```powershell
