@@ -1,3 +1,17 @@
+# ==============================
+# 定义全局变量 (请在此处修改参数)
+# ==============================
+DB2_IMAGE_NAME = icr.io/db2_community/db2:11.5.9.0
+DB2_CONTAINER_NAME = ibmdb2_dbt_test
+DB2_USERNAME = testdb
+DB2_PASSWORD = ibm123
+TOX_PARALLEL = 3
+
+
+# ==============================
+# 定义任务脚本
+# ==============================
+
 # 自动化搭建一个本地的开发环境
 install:
 # 	在当前项目目录下创建两个文件夹
@@ -11,39 +25,41 @@ install:
 	@echo "🔍 正在启动 ibmdb2 容器，需要一些时间，请稍等..."
 	@sudo docker run \
 		-itd \
-		--name dbt-db2 \
+		--name $(DB2_CONTAINER_NAME) \
 		--restart unless-stopped \
 		-v ${PWD}/db2/database:/database \
 		-v ${PWD}/db2/keystore:/keystore \
 		-v ${PWD}/db2/setup_ssl.sh:/resources/setup_ssl.sh \
-		-e DBNAME=testdb \
-		-e DB2INST1_PASSWORD=ibm123 \
+		-e DBNAME=$(DB2_USERNAME) \
+		-e DB2INST1_PASSWORD=$(DB2_PASSWORD) \
 		-e LICENSE=accept \
 		-p 50000:50000 \
 		-p 50002:50002 \
 		--privileged=true \
-		icr.io/db2_community/db2:11.5.9.0
+		$(DB2_IMAGE_NAME)
 # 	同步等待数据库创建完成，并实时跟踪容器日志，当捕捉到 “Setup has completed.” 则结束
-	@sudo docker logs -f dbt-db2 2>&1 | grep -m 1 '(*) Setup has completed.'
+	@sudo docker logs -f $(DB2_CONTAINER_NAME) 2>&1 | grep -m 1 '(*) Setup has completed.'
 	@echo "✅ ibmdb2 数据库 启动成功!"
 # 	在容器内部运行刚才挂载进去的 setup_ssl.sh 脚本
+#   db2inst1 是ibmdb2创建的默认操作系统用户
 	@sudo docker exec \
 		-d \
 		--user db2inst1 \
-		dbt-db2 \
+		$(DB2_CONTAINER_NAME) \
 		/bin/bash -c 'cd && source .bashrc && sh /resources/setup_ssl.sh'
 # 	安装 Python 依赖（确保linux中已经安装了Python）
 	@uv sync
 
 # 重启 dbt-db2 容器
 restart-db2:
-	@sudo docker restart dbt-db2
+	@sudo docker restart $(DB2_CONTAINER_NAME)
 
 # 完全卸载开发环境
 uninstall:
-	@sudo docker rm dbt-db2 --force
+	@sudo docker rm $(DB2_CONTAINER_NAME) --force
+# 	--force 是为了停止容器，否则无法正常删除镜像
 # 	“|| true” 是为了防止某个镜像不存在时，导致整个make命令报错而中断
-	@sudo docker rmi icr.io/db2_community/db2:11.5.9.0 --force || true
+	@sudo docker rmi $(DB2_IMAGE_NAME) --force || true
 	@rm -rf db2/database/*
 	@rm -rf db2/keystore/*
 	@rm -rf .tox .venv .pytest_cache logs
@@ -51,4 +67,4 @@ uninstall:
 # 运行自动化测试
 test:
 	@rm -rf .tox .pytest_cache logs
-	@uv run tox --parallel 3
+	@uv run tox --parallel $(TOX_PARALLEL)
