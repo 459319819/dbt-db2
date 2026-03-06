@@ -36,6 +36,12 @@ wheels = [
 ]
 
 [[package]]
+name = "atomicwrites"
+version = "1.4.1"
+source = { registry = "https://nexus.asiic.cn/repository/pypi-proxy/simple" }
+sdist = { url = "https://nexus.asiic.cn/repository/pypi-proxy/packages/atomicwrites/1.4.1/atomicwrites-1.4.1.tar.gz", hash = "sha256:81b2c9071a49367a7f770170e5eec8cb66567cfbbc8c73d20ce5ca4a8d71cf11" }
+
+[[package]]
 name = "attrs"
 version = "25.4.0"
 source = { registry = "https://nexus.asiic.cn/repository/pypi-proxy/simple" }
@@ -533,12 +539,12 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "build", specifier = "~=1.4.0" },
+    { name = "build", specifier = "==1.4.0" },
     { name = "dbt-tests-adapter", specifier = ">=1.8.0" },
-    { name = "pytest", specifier = "~=7.1.2" },
-    { name = "python-dotenv", specifier = "~=0.20.0" },
-    { name = "tox", specifier = "~=3.25.1" },
-    { name = "twine", specifier = "~=6.2.0" },
+    { name = "pytest", specifier = "==7.1.2" },
+    { name = "python-dotenv", specifier = "==0.20.0" },
+    { name = "tox", specifier = "==3.25.1" },
+    { name = "twine", specifier = "==6.2.0" },
 ]
 
 [[package]]
@@ -1562,9 +1568,10 @@ wheels = [
 
 [[package]]
 name = "pytest"
-version = "7.1.3"
+version = "7.1.2"
 source = { registry = "https://nexus.asiic.cn/repository/pypi-proxy/simple" }
 dependencies = [
+    { name = "atomicwrites", marker = "sys_platform == 'win32'" },
     { name = "attrs" },
     { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "iniconfig", version = "2.1.0", source = { registry = "https://nexus.asiic.cn/repository/pypi-proxy/simple" }, marker = "python_full_version < '3.10'" },
@@ -1574,9 +1581,9 @@ dependencies = [
     { name = "py" },
     { name = "tomli" },
 ]
-sdist = { url = "https://nexus.asiic.cn/repository/pypi-proxy/packages/pytest/7.1.3/pytest-7.1.3.tar.gz", hash = "sha256:4f365fec2dff9c1162f834d9f18af1ba13062db0c708bf7b946f8a5c76180c39" }
+sdist = { url = "https://nexus.asiic.cn/repository/pypi-proxy/packages/pytest/7.1.2/pytest-7.1.2.tar.gz", hash = "sha256:a06a0425453864a270bc45e71f783330a7428defb4230fb5e6a731fde06ecd45" }
 wheels = [
-    { url = "https://nexus.asiic.cn/repository/pypi-proxy/packages/pytest/7.1.3/pytest-7.1.3-py3-none-any.whl", hash = "sha256:1377bda3466d70b55e3f5cecfa55bb7cfcf219c7964629b967c37cf0bda818b7" },
+    { url = "https://nexus.asiic.cn/repository/pypi-proxy/packages/pytest/7.1.2/pytest-7.1.2-py3-none-any.whl", hash = "sha256:13d0e3ccfc2b6e26be000cb6568c832ba67ba32e719443bfe725814d3c42433c" },
 ]
 
 [[package]]
