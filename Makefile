@@ -3,8 +3,8 @@
 # ==============================
 DB2_IMAGE_NAME = icr.io/db2_community/db2:11.5.9.0
 DB2_CONTAINER_NAME = ibmdb2_dbt_test
-DB2_USERNAME = testdb
-DB2_PASSWORD = ibm123
+DB2_DBNAME = testdb
+DB2_PASSWORD = ibm123 # 默认会创建一个用户：db2inst1
 TOX_PARALLEL = 3
 
 
@@ -30,7 +30,7 @@ install:
 		-v ${PWD}/db2/database:/database \
 		-v ${PWD}/db2/keystore:/keystore \
 		-v ${PWD}/db2/setup_ssl.sh:/resources/setup_ssl.sh \
-		-e DBNAME=$(DB2_USERNAME) \
+		-e DBNAME=$(DB2_DBNAME) \
 		-e DB2INST1_PASSWORD=$(DB2_PASSWORD) \
 		-e LICENSE=accept \
 		-p 50000:50000 \
