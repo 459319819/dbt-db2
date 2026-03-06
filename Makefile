@@ -57,7 +57,7 @@ restart-db2:
 
 # 完全卸载开发环境
 uninstall:
-	@sudo docker rm $(DB2_CONTAINER_NAME) --force
+	@sudo docker rm $(DB2_CONTAINER_NAME) --force || true
 # 	--force 是为了停止容器，否则无法正常删除镜像
 # 	“|| true” 是为了防止某个镜像不存在时，导致整个make命令报错而中断
 #   由于容器挂在卷的权限属于容器内部用户，需要sudo授权删除
