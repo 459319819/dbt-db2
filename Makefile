@@ -60,9 +60,10 @@ uninstall:
 	@sudo docker rm $(DB2_CONTAINER_NAME) --force
 # 	--force 是为了停止容器，否则无法正常删除镜像
 # 	“|| true” 是为了防止某个镜像不存在时，导致整个make命令报错而中断
+#   由于容器挂在卷的权限属于容器内部用户，需要sudo授权删除
 	@sudo docker rmi $(DB2_IMAGE_NAME) --force || true
-	@rm -rf db2/database/*
-	@rm -rf db2/keystore/*
+	@sudo rm -rf db2/database/*
+	@sudo rm -rf db2/keystore/*
 	@rm -rf .tox .venv .pytest_cache logs
 
 # 运行自动化测试
