@@ -6,6 +6,8 @@ DB2_CONTAINER_NAME = ibmdb2_dbt_test
 DB2_DBNAME = testdb
 DB2_PASSWORD = ibm123 # 默认会创建一个用户：db2inst1
 TOX_PARALLEL = 3
+# eg：py39,py311,py313
+PY_ENV_LIST = py311
 
 
 # ==============================
@@ -70,3 +72,8 @@ uninstall:
 test:
 	@rm -rf .tox .pytest_cache logs
 	@uv run tox --parallel $(TOX_PARALLEL)
+
+# 选择指定Python环境进行测试
+test-select:
+	@rm -rf .tox .pytest_cache logs
+	@uv run tox -e $(PY_ENV_LIST)
