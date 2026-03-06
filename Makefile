@@ -42,7 +42,8 @@ restart-db2:
 # 完全卸载开发环境
 uninstall:
 	@sudo docker rm dbt-db2 --force
-	@sudo docker rmi ibmcom/db2:11.5.7.0 --force
+# 	“|| true” 是为了防止某个镜像不存在时，导致整个make命令报错而中断
+	@sudo docker rmi icr.io/db2_community/db2:11.5.9.0 --force || true
 	@rm -rf db2/database/*
 	@rm -rf db2/keystore/*
 	@rm -rf .tox .venv .pytest_cache logs
