@@ -2,7 +2,7 @@
 name = "dbt-db2"
 version = "1.0.1"
 requires-python = ">=3.9"
-description = "是一款 dbt (data build tool) 的适配器插件, 基于 dbt-ibmdb2@1.8.0 修订。"
+description = "A dbt (data build tool) adapter plugin, for interaction between dbt and IBM Db2 databases."
 authors = [
     { name = "Getter", email = "459319819@qq.com" },
     { name = "aurany", email = "rasmus.nyberg@gmail.com" }
@@ -24,12 +24,12 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "pytest~=7.1.2",
-    "tox~=3.25.1",
-    "python-dotenv~=0.20.0",
+    "pytest==7.1.2",
+    "tox==3.25.1",
+    "python-dotenv==0.20.0",
     "dbt-tests-adapter>=1.8.0",
-    "build~=1.4.0",
-    "twine~=6.2.0",
+    "build==1.4.0",
+    "twine==6.2.0",
 ]
 
 [[tool.uv.index]]
