@@ -22,7 +22,7 @@ install:
 # 	-p 表示如果目录已存在则不报错。
 	@mkdir -p db2/database
 	@mkdir -p db2/keystore
-	@echo "🔍 正在启动 ibmdb2 容器，需要一些时间，请稍等..."
+	@echo "🔍 下载并运行 ibmdb2 容器，需要一些时间，请稍等..."
 	@sudo docker run \
 		-itd \
 		--name $(DB2_CONTAINER_NAME) \
@@ -37,6 +37,7 @@ install:
 		-p 50002:50002 \
 		--privileged=true \
 		$(DB2_IMAGE_NAME)
+	@echo "🔍 还有一小会，请耐心等待..."
 # 	同步等待数据库创建完成，并实时跟踪容器日志，当捕捉到 “Setup has completed.” 则结束
 	@sudo docker logs -f $(DB2_CONTAINER_NAME) 2>&1 | grep -m 1 '(*) Setup has completed.'
 	@echo "✅ ibmdb2 数据库 启动成功!"
